@@ -7,6 +7,7 @@
     "noImplicitAny": true,
     "removeComments": true,
     "strictNullChecks": true,
+    "experimentalDecorators": true,
     "baseUrl": "./src",
     "paths": {
       "*": ["node_modules/*", "src/types/*"]
@@ -14,5 +15,5 @@
   },
   "include": [
     "app/**/*"
-  ]
+, "dist"  ]
 }

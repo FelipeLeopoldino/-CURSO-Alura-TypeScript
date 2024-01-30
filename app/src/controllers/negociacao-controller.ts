@@ -1,3 +1,4 @@
+import { logarTempoExecucao } from '../decorators/logarTempoExecucao.js'
 import { DiasDaSemana } from '../enums/diasDaSemana.js'
 import { Negociacao } from '../models/negociacao.js'
 import { Negociacoes } from '../models/negociaoes.js'
@@ -9,16 +10,19 @@ export class NegociacaoController {
    private inputQuantidade: HTMLInputElement
    private inputValor: HTMLInputElement
    private negociacoes = new Negociacoes()
-   private negociacoesView = new NegociacoesView('#negociacoesView', true)
+   private negociacoesView = new NegociacoesView('#negociacoesView')
    private mensagemView = new MensagemView('#mensagemView')
 
    constructor() {
       this.inputData = document.querySelector('#data') as HTMLInputElement
-      this.inputQuantidade = document.querySelector('#quantidade') as HTMLInputElement
+      this.inputQuantidade = document.querySelector(
+         '#quantidade'
+      ) as HTMLInputElement
       this.inputValor = document.querySelector('#valor') as HTMLInputElement
       this.negociacoesView.update(this.negociacoes)
    }
 
+   @logarTempoExecucao(true)
    public adiciona(): void {
       const negociacao = Negociacao.criaDe(
          this.inputData.value,
@@ -33,8 +37,8 @@ export class NegociacaoController {
          return
       }
       this.negociacoes.adiciona(negociacao)
-      this.atualizaView()
       this.limparFormulario()
+      this.atualizaView()
    }
 
    private ehDiaUtil(data: Date) {
